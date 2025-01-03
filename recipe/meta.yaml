@@ -11,19 +11,21 @@ source:
     sha256: {{ sha256 }}
 
 build:
-    number: 0
+    number: 1
     script: "{{ PYTHON }} -m pip install . -vv"
     noarch: python
 
 requirements:
     host:
-        - python >=3.6
+        - python {{ python_min }}
         - pip
     run:
-        - python >=3.6
+        - python >={{ python_min }}
         - inferno >=v0.4.2
 
 test:
+    requires:
+        - python {{ python_min }}
     imports:
         - neurofire
 
