@@ -1,5 +1,4 @@
 {% set version = "0.1.0" %}
-{% set sha256 = "9f23eb77529fc34520c1a79022833f024cd4acb52ba406d08dc4d191372a7343" %}
 {% set name = "neurofire" %}
 
 package:
@@ -7,33 +6,36 @@ package:
     version: {{ version }}
 
 source:
-    url: https://github.com/inferno-pytorch/neurofire/archive/v{{ version }}.tar.gz
-    sha256: {{ sha256 }}
+  url: https://github.com/inferno-pytorch/neurofire/archive/v{{ version }}.tar.gz
+  sha256: 9f23eb77529fc34520c1a79022833f024cd4acb52ba406d08dc4d191372a7343
 
 build:
-    number: 0
-    script: "{{ PYTHON }} -m pip install . -vv"
-    noarch: python
+  number: 1
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  noarch: python
 
 requirements:
-    host:
-        - python >=3.6
-        - pip
-    run:
-        - python >=3.6
-        - inferno >=v0.4.2
+  host:
+    - python {{ python_min }}
+    - setuptools
+    - pip
+  run:
+    - python >={{ python_min }}
+    - inferno >=v0.4.2
 
 test:
-    imports:
-        - neurofire
+  requires:
+    - python {{ python_min }}
+  imports:
+    - neurofire
 
 about:
-    license: MIT
-    license_file: LICENSE
-    license_family: MIT
-    summary: Toolkit for deep learning with connectomics datasets.
-    home: https://github.com/inferno-pytorch/neurofire
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  summary: Toolkit for deep learning with connectomics datasets.
+  home: https://github.com/inferno-pytorch/neurofire
 
 extra:
-    recipe-maintainers:
-        - constantinpape
+  recipe-maintainers:
+    - constantinpape
